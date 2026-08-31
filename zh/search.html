@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>搜尋 | G-Resources Group Limited</title>
+  <meta name="description" content="國際資源集團有限公司（股份代號：1051）— 金融服務、放債、自營投資及房地產。">
+  <link rel="icon" href="../assets/img/favicon.jpg" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css?v=white">
+  
+</head>
+<body data-depth="1" data-page="zh/search.html">
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="ribbon" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo-link" href="index.html" rel="home"><img src="../assets/img/logo.jpg" alt="G-Resources 國際資源" width="250" height="55"></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">選單</button>
+    <div class="nav-wrap" id="site-nav">
+      <nav class="primary-nav" aria-label="Primary"><ul class="primary-menu">
+<li class="menu-item has-children"><a href="#">關於我們</a>
+<ul class="sub-menu">
+<li class="menu-item"><a href="about/board.html">董事會</a>
+</li>
+<li class="menu-item"><a href="about/governance.html">企業管治</a>
+</li>
+<li class="menu-item"><a href="about/committees.html">委員會</a>
+</li>
+<li class="menu-item"><a href="about/policies.html">集團政策及管治文件</a>
+</li>
+</ul>
+</li>
+<li class="menu-item has-children"><a href="#">我們的業務</a>
+<ul class="sub-menu">
+<li class="menu-item"><a href="business/financial-services.html">金融服務</a>
+<ul class="sub-menu">
+<li><a href="business/financial-services.html">Funderstone</a></li>
+</ul>
+</li>
+<li class="menu-item"><a href="business/principal-investment.html">自營投資</a>
+</li>
+<li class="menu-item"><a href="business/real-property.html">房地產</a>
+</li>
+</ul>
+</li>
+<li class="menu-item has-children"><a href="#">投資者關係</a>
+<ul class="sub-menu">
+<li class="menu-item"><a href="ir/announcements.html">公告</a>
+</li>
+<li class="menu-item"><a href="ir/circulars.html">通函</a>
+</li>
+<li class="menu-item"><a href="ir/annual-reports.html">年報</a>
+</li>
+<li class="menu-item"><a href="ir/interim-reports.html">中期報告</a>
+</li>
+<li class="menu-item"><a href="ir/esg.html">環境、社會和管治報告</a>
+</li>
+<li class="menu-item"><a href="ir/returns.html">股本申報表</a>
+</li>
+<li class="menu-item"><a href="ir/constitutional.html">憲章文件</a>
+</li>
+</ul>
+</li>
+<li class="menu-item"><a href="ir/corporate-information.html">公司資料</a>
+</li>
+<li class="menu-item has-children pll"><a href="#pll_switcher">中文 (繁體)</a><ul class="sub-menu"><li><a href="../search.html" hreflang="en-GB" lang="en-GB">English</a></li><li><a href="search.html" hreflang="zh-HK" lang="zh-HK">中文 (繁體)</a></li><li><a href="../cn/search.html" hreflang="zh-CN" lang="zh-CN">中文 (简体)</a></li></ul></li>
+<li class="menu-search"><button class="search-btn" type="button" aria-label="Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg></button></li>
+</ul></nav>
+      <div class="search-panel">
+        <form class="search-form" action="search.html" method="get" role="search">
+          <label class="visually-hidden" style="position:absolute;left:-9999px">Search</label>
+          <input type="search" name="s" placeholder="搜尋 …" value="">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="content">
+
+<div class="wrap">
+  <h1 class="page-title">搜尋</h1>
+  <form class="search-form" id="search-page-form" action="search.html" method="get">
+    <input type="search" name="s" id="q" placeholder="搜尋 …" style="padding:10px 12px;width:min(480px,100%);font:16px Arimo,sans-serif">
+    <button type="submit" style="background:#25c2ff;color:#fff;border:0;padding:10px 16px;font:600 14px Arimo,sans-serif;cursor:pointer">搜尋</button>
+  </form>
+  <p class="muted" id="search-status"></p>
+  <ul class="search-results" id="search-results"></ul>
+</div>
+<script>
+(function(){
+  function localDocUrl(u){
+    if(!u) return u;
+    var i = u.indexOf('wp-content/');
+    if(i === -1) return u;
+    var rest = u.slice(i);
+    var depth = document.body.getAttribute('data-depth') || '0';
+    var prefix = depth === '1' ? '../' : depth === '2' ? '../../' : '';
+    return prefix + rest;
+  }
+  function param(name){
+    var u = new URL(location.href);
+    return u.searchParams.get(name) || u.searchParams.get("q") || "";
+  }
+  var q = param("s") || param("q");
+  var input = document.getElementById("q");
+  if (input) input.value = q;
+  var status = document.getElementById("search-status");
+  var list = document.getElementById("search-results");
+  if (!q.trim()) { status.textContent = '請輸入關鍵字搜尋頁面及文件。'; return; }
+  fetch("../assets/js/search-index.json").then(function(r){ return r.json(); }).then(function(idx){
+    var needle = q.trim().toLowerCase();
+    var hits = [];
+    idx.pages.forEach(function(p){
+      var hay = (p.title + " " + (p.text||"")).toLowerCase();
+      if (hay.indexOf(needle) !== -1) hits.push({title:p.title, url:p.url, kind:'頁面'});
+    });
+    idx.filings.forEach(function(f){
+      var hay = ((f.title||"") + " " + (f.date||"")).toLowerCase();
+      if (hay.indexOf(needle) !== -1) hits.push({title:(f.date? f.date + " — " : "") + f.title, url:f.url, kind:f.kind});
+    });
+    status.textContent = hits.length + " result(s) for “" + q + "”";
+    list.innerHTML = hits.slice(0, 80).map(function(h){
+      return "<li><span class=muted>[" + h.kind + "]</span> <a href=\"" + localDocUrl(h.url) + "\">" + h.title.replace(/</g,"&lt;") + "</a></li>";
+    }).join("");
+  }).catch(function(){ status.textContent = '無法載入搜尋索引。'; });
+})();
+</script>
+
+
+</main>
+<footer class="site-footer">
+  <div><a href="disclaimer.html">免責聲明及版權</a></div>
+  <div class="copy">Copyright © 2026 G-Resources Group Limited. All Rights Reserved.</div>
+</footer>
+<button class="scroll-top" type="button" aria-label="Back to top">↑</button>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
